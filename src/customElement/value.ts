@@ -1,5 +1,14 @@
+export type AnalyticsData = Readonly<{
+  pageViews: number;
+  uniqueVisitors: number;
+  bounceRate: number;
+  avgTimeOnPage: number; // in seconds
+  lastUpdated: string; // ISO date string
+  pageViewsHistory: ReadonlyArray<{ date: string; views: number }>;
+}>;
+
 export type Value = Readonly<{
-  valueKey: string;
+  analyticsData: AnalyticsData | null;
 }>;
 
 export const parseValue = (input: string | null): Value | null | "invalidValue" => {
@@ -18,4 +27,4 @@ export const parseValue = (input: string | null): Value | null | "invalidValue" 
 };
 
 const isValidValue = (obj: Readonly<Record<string, unknown>>) =>
-  "valueKey" in obj;
+  "analyticsData" in obj;
